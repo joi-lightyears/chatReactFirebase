@@ -79,7 +79,7 @@ const Register = () => {
                         <img src={Add} alt="" />
                         <span>Add an avatar</span>
                         {loading && 
-                            <div class="follow-the-leader">
+                            <div className="follow-the-leader">
                             <div></div>
                             <div></div>
                             <div></div>
