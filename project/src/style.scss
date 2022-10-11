@@ -327,10 +327,21 @@ textarea {
     margin: 0px 15px 20px;
     // color: white;
     display: flex;
+    // position: relative;
     align-items: center;
     justify-content: space-between;
     -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.05); 
 box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.05);
+// .messageInput{
+//     display: flex;
+//     transform: translateY(-28px);
+
+// }
+// .loader{
+//     // margin-top: -10px;
+//     // position: absolute;
+//     transform: translateY(-35px);
+// }
     input{
         width: 100%;
         border: none;
@@ -513,3 +524,35 @@ box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.05);
     background: #202225;
     border-radius: 5px;
 }
+// loader
+.loader {
+    width: 100%;
+    height: 4.8px;
+    display: inline-block;
+    position: relative;
+    background: rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+  }
+  .loader::after {
+    content: '';
+    width: 192px;
+    height: 4.8px;
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    animation: animloader 2s linear infinite;
+  }
+  
+  @keyframes animloader {
+    0% {
+      left: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      left: 100%;
+      transform: translateX(0%);
+    }
+  }
+      

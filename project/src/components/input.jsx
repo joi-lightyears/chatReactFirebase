@@ -13,6 +13,7 @@ const Input = () => {
   const [img, setImg] = useState(null)
   const {currentUser} =useContext(AuthContext)
   const {data} = useContext(ChatContext)
+  // const [loading, setLoading] = useState(false);
   
   const handleKeyDown = (e) => {
     if(e.key === "Enter"){
@@ -24,6 +25,7 @@ const Input = () => {
   const handleSend = async()=>{
     setText("")
     if(img){
+      // setLoading(true);
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
       uploadTask.on( 
@@ -90,15 +92,18 @@ const Input = () => {
   }
   return (
     <div className='input'>
-      <input id='input' type="text" placeholder='Message' autoComplete="off" onKeyDown={handleKeyDown} onChange={e=>setText(e.target.value)} value={text}/>
-      <div className="send">
-        <img src={Attach} alt="" />
-        <input type="file" style={{display:"none"}} id="file" onChange={e=>setImg(e.target.files[0])}/>
-        <label htmlFor="file">
-          <img src={Img} alt="" />
-        </label>
-        <button onClick={handleSend}>Send</button>
-      </div>
+      {/* {loading && <span className="loader"></span>} */}
+      {/* <div className="messageInput"> */}
+        <input id='input' type="text" placeholder='Message' autoComplete="off" onKeyDown={handleKeyDown} onChange={e=>setText(e.target.value)} value={text}/>
+        <div className="send">
+          <img src={Attach} alt="" />
+          <input type="file" style={{display:"none"}} id="file" onChange={e=>setImg(e.target.files[0])}/>
+          <label htmlFor="file">
+            <img src={Img} alt="" />
+          </label>
+          <button onClick={handleSend}>Send</button>
+        </div>
+      {/* </div> */}
     </div>
   )
 }
