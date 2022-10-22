@@ -22,7 +22,7 @@ const Message = ({message}) => {
     <div ref={ref} className={`message ${message.senderId === currentUser.uid && "owner"}`}>
       <div className="messageInfo">
         <img src={message.senderId === currentUser.uid ? currentUser.photoURL : data.user.photoURL} alt="" />
-        <span>{(message.date.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+        <span>{(message.date.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false})}</span>
       </div>
       <div className="messageContent">
         {message.text && <p>{message.text }</p>}
