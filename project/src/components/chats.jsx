@@ -1,13 +1,22 @@
 import {React, useState, useEffect, useContext} from 'react'
 // import cyno from "../images/cyno.jpg"
 import {AuthContext} from "../context/AuthContext"
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore'
 import {db} from "../firebase"
 import { ChatContext } from '../context/ChatContext'
 const Chats = () => {
   const [chats, setChats] = useState([])
   const {currentUser} = useContext(AuthContext)
   const {dispatch} = useContext(ChatContext)
+  // updateDoc(doc(db, "users", currentUser.uid),{
+  //   "onlineState": false
+  // });
+  // onDisconnect().updateDoc(doc(db, "users", currentUser.uid),{
+  //   "onlineState": false
+  // })
+
+//   var ref = db.database().ref("users/ada");
+
   useEffect(()=>{
     const getChats =()=>{
       const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {

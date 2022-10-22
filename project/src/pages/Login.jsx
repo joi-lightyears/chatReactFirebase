@@ -3,6 +3,8 @@ import React from 'react'
 import { useState } from "react";
 import {useNavigate, Link} from "react-router-dom"
 import { getAuth,signInWithEmailAndPassword } from "firebase/auth";
+import {motion} from "framer-motion"
+
 const Login = () => {
     const [err, setErr] = useState(false);
     const navigate = useNavigate()
@@ -21,7 +23,26 @@ const Login = () => {
     }
   return (
     <div className="formContainer">
-        <div className="formWrapper">
+        <motion.div 
+        initial="initialState"
+        animate="animateState"
+        exit="exitState"
+        transition={{duration:0.5}}
+        variants={{
+          initialState: {
+            opacity: 0,
+            clipPath: "circle(0.0% at 50% 50%)",
+          },
+          animateState: {
+            opacity: 1,
+            clipPath: "circle(70.7% at 50% 50%)",
+          },
+          exitState: {
+            opacity: 0,
+            clipPath: "circle(0.0% at 50% 50%)",
+          },
+        }}
+        className="formWrapper">
             <span className="logo">PDBB Chat O.O</span>
             <span className="title">Login</span>
             <form onSubmit={handleSubmit}>
@@ -37,7 +58,7 @@ const Login = () => {
               {err && <span>Something went wrong</span>}
             </form>
             <p>Not have an account yet? <Link to="/register">Register</Link></p>
-        </div>
+        </motion.div>
     </div>
   )
 }

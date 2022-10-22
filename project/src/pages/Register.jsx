@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import {useNavigate, Link} from "react-router-dom"
+import {motion} from "framer-motion"
 const Register = () => {
     const [err, setErr] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -34,7 +35,8 @@ const Register = () => {
                                 displayName,
                                 email,
                                 photoURL: url,
-                                country: "vi-VN"
+                                country: "vi-VN",
+                                onlineState: true
                         }) 
                         await setDoc(doc(db,"userChats", res.user.uid),{})
                         navigate("/")
@@ -57,7 +59,27 @@ const Register = () => {
 
   return (
     <div className="formContainer">
-        <div className="formWrapper">
+        <motion.div
+        initial="initialState"
+        animate="animateState"
+        exit="exitState"
+        transition={{duration:0.5}}
+
+        variants={{
+          initialState: {
+            opacity: 0,
+            clipPath: "circle(0.0% at 50% 50%)",
+          },
+          animateState: {
+            opacity: 1,
+            clipPath: "circle(70.7% at 50% 50%)",
+          },
+          exitState: {
+            opacity: 0,
+            clipPath: "circle(0.0% at 50% 50%)",
+          },
+        }}
+         className="formWrapper">
             <span className="logo">PDBB Chat O.O</span>
             <span className="title">Register</span>
             <form onSubmit={handleSubmit}>
@@ -96,7 +118,7 @@ const Register = () => {
                 {err && <span>Something went wrong</span>}
             </form>
             <p>Already have an account? <Link to="/login">Login</Link></p>
-        </div>
+        </motion.div>
     </div>
   )
 }
