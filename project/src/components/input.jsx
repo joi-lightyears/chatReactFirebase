@@ -50,43 +50,28 @@ const Input = () => {
       setQueue(false)
       // setLoading(true);
       const storageRef = ref(storage, uuid());
-      const uploadTask = uploadBytesResumable(storageRef, img);
-      uploadTask.on( 
-        (error) => {
-          // setErr(true);
-          // Handle unsuccessful uploads
-        }, 
-        () => {
-          // Handle successful uploads on complete
-          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-            await updateDoc(doc(db,"chats", data.chatId),{
-              messages: arrayUnion({
-                id: uuid(),
-                text,
-                senderId:currentUser.uid,
-                date: Timestamp.now(),
-                img: downloadURL,
-              })
-            })
+      const uploadTask = uploadBytesResumable(storageRef, img).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          await updateDoc(doc(db, "chats", data.chatId), {
+            messages: arrayUnion({
+              id: uuid(),
+              text,
+              senderId: currentUser.uid,
+              date: Timestamp.now(),
+              img: downloadURL,
+            }),
           });
-          setImg(null)
-        }
-      );
-    }else{
-      if (text !== ""){
-        await updateDoc(doc(db,"chats", data.chatId),{
-          messages: arrayUnion({
-            id: uuid(),
-            text,
-            senderId:currentUser.uid,
-            date: Timestamp.now()
-          })
-        })
-      } else {
-        // if text is empty - do nothing
-        return
-      }
+        });
+      })
+    } else {
+      await updateDoc(doc(db, "chats", data.chatId), {
+        messages: arrayUnion({
+          id: uuid(),
+          text,
+          senderId: currentUser.uid,
+          date: Timestamp.now(),
+        }),
+      });
     }
     await updateDoc(doc(db,"userChats", currentUser.uid),{
       [data.chatId + ".lastMessage"]:{

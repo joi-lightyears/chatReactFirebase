@@ -388,7 +388,8 @@ textarea {
             border-radius: 50%;
         }
         .imgQueue--zoom{
-            height: 200px;
+            height: 150px;
+            max-height: 150px;
             transition: 0.5s;
         }
     }
