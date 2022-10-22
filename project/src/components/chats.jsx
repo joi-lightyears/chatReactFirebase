@@ -8,6 +8,35 @@ const Chats = () => {
   const [chats, setChats] = useState([])
   const {currentUser} = useContext(AuthContext)
   const {dispatch} = useContext(ChatContext)
+  // const test = async () => {
+  //   const docRef = doc(db, "users", currentUser.uid);
+  //   docRef.update({
+  //     "onlineState": false
+  //   })
+  //   docRef.onDisconnect().update({
+  //     "onlineState": false
+  //   })
+  // }
+  // test()
+// var uid = currentUser.uid;
+// var userStatusDatabaseRef = db.database().ref('/status/' + uid);
+// var isOfflineForDatabase = {
+//     state: 'offline',
+//     last_changed: db.database.ServerValue.TIMESTAMP,
+// };
+// var isOnlineForDatabase = {
+//     state: 'online',
+//     last_changed: db.database.ServerValue.TIMESTAMP,
+// };
+// db.database().ref('.info/connected').on('value', function(snapshot) {
+//     if (snapshot.val() == false) {
+//         return;
+//     };
+//     userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+//         userStatusDatabaseRef.set(isOnlineForDatabase);
+//     });
+// });
+
   // updateDoc(doc(db, "users", currentUser.uid),{
   //   "onlineState": false
   // });

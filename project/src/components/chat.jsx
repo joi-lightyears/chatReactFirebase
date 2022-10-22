@@ -115,16 +115,6 @@ const Chat = () => {
   
   const {data} = useContext(ChatContext)
   const {currentUser} = useContext(AuthContext)
-  //console.log(languageUser)
-  // useEffect(() => {
-  //   const languages = document.getElementById("languages")
-  //   languages.addEventListener("change", (e) => {
-  //     setCountry(e.target.value)
-  //     console.log(country)
-  //     //console.log(e.target.value)
-  //     // console.log("change")
-  //   })
-  // }, [])
   const [country, setCountry] = useState("")
   const getData = async () => {
     const docRef = doc(db, "users", currentUser.uid);
