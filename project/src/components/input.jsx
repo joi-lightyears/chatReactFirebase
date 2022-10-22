@@ -1,9 +1,9 @@
-import {React, useContext, useState} from 'react'
+import {React, useContext, useEffect, useState, useLayoutEffect} from 'react'
 import Img from '../images/img.png'
 import Attach from '../images/attach.png'
 import {AuthContext} from "../context/AuthContext"
 import { ChatContext } from '../context/ChatContext'
-import { arrayUnion, updateDoc, doc, Timestamp, serverTimestamp } from 'firebase/firestore'
+import { arrayUnion, updateDoc, doc, Timestamp, serverTimestamp, getDoc } from 'firebase/firestore'
 import {v4 as uuid} from "uuid"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
@@ -34,6 +34,42 @@ const Input = () => {
       handleSend()
     }
   }
+
+    // Get country from firestore
+    const [textTranslated, setTextTranslated] = useState("")
+    const [country, setCountry] = useState("")
+    const getData = async (user, setCountry) => {
+      const docRef = doc(db, "users", user);
+      const docSnap = await getDoc(docRef);
+      setCountry(docSnap.data().country)
+    }
+    getData(currentUser.uid, setCountry);
+    const userID = currentUser.uid;
+    const chatID = data.chatId;
+    let userID_re = chatID.replace(userID, "");
+    const [country_re, setCountry_re] = useState("")
+    getData(userID_re, setCountry_re);
+  
+    const handleTranslate = async (text, country, country_re) => {
+      if (text !== ""){
+        let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
+        await fetch(urlAPI)
+            .then((response) => response.json())
+            .then((data) => {
+              setTextTranslated(data.responseData.translatedText)
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      } else {
+        setTextTranslated("")
+      }   
+    }
+  
+    useLayoutEffect(() => {
+      handleTranslate(text, country, country_re)
+    }, [text])
+
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
@@ -41,6 +77,7 @@ const Input = () => {
     var element = document.getElementById("file");
     element.value = "";
     setQueue(false)
+    setImg(null);
   }
   const handleSend = async()=>{
     var element = document.getElementById("input");
@@ -59,6 +96,7 @@ const Input = () => {
               senderId: currentUser.uid,
               date: Timestamp.now(),
               img: downloadURL,
+              textTranslated,
             }),
           });
         });
@@ -72,6 +110,7 @@ const Input = () => {
           text,
           senderId: currentUser.uid,
           date: Timestamp.now(),
+          textTranslated,
         }),
       });
     }else{

@@ -1,4 +1,4 @@
-import {React, useContext, useEffect, useRef} from 'react'
+import {React, useContext, useEffect, useState, useRef} from 'react'
 import { ChatContext } from '../context/ChatContext'
 // import cyno from "../images/cyno.jpg"
 import {AuthContext} from "../context/AuthContext"
@@ -17,6 +17,14 @@ const Message = ({message}) => {
     e.target.classList.toggle("imgMess--zoom")
   }
 
+  const [messageDisplay, setMessageDisplay] = useState(null)
+
+  const isCurrentUser = message.senderId === currentUser.uid;
+
+  useEffect(() => {
+    isCurrentUser ? setMessageDisplay(message.text) : setMessageDisplay(message.textTranslated)
+  }, [message])
+
 
   return (
     <div ref={ref} className={`message ${message.senderId === currentUser.uid && "owner"}`}>
@@ -25,7 +33,7 @@ const Message = ({message}) => {
         <span>{(message.date.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false})}</span>
       </div>
       <div className="messageContent">
-        {message.text && <p>{message.text }</p>}
+        {messageDisplay && <p>{messageDisplay }</p>}
         {/* {message.img && <img src={message.img} alt="" className='imgMess'  />} */}
         {message.img && <img src={message.img} alt="" className='imgMess' onClick={handleZoomImg} />}
       </div> 
