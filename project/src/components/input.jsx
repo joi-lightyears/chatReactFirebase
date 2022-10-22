@@ -62,8 +62,10 @@ const Input = () => {
             }),
           });
         });
+        setImg(null)
       })
-    } else {
+    } else 
+      if(text!==""){
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
@@ -72,6 +74,8 @@ const Input = () => {
           date: Timestamp.now(),
         }),
       });
+    }else{
+      return
     }
     await updateDoc(doc(db,"userChats", currentUser.uid),{
       [data.chatId + ".lastMessage"]:{
