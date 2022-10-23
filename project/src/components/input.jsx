@@ -13,14 +13,13 @@ const Input = () => {
   const [text, setText] = useState("")
   const [img, setImg] = useState(null)
   const [queue, setQueue] = useState(false)
+  const [enter, setEnter] = useState(false)
   // const [qImg, setQImg] = useState(null)
   const {currentUser} =useContext(AuthContext)
   const {data} = useContext(ChatContext)
   const image = null;
   // const [loading, setLoading] = useState(false);
   const handleQueue = (imgURL) =>{
-    // var element = document.getElementById("input");
-    // element.classList.toggle("queue--show");
     var reader = new FileReader();
     reader.onload = function (e) {
       var img = document.getElementById("queue");
@@ -28,8 +27,16 @@ const Input = () => {
     };
     reader.readAsDataURL(imgURL);
   }
+  
+  // close img in queue (when press x)
+  const reset = () => {
+    var element = document.getElementById("file");
+    element.value = "";
+    setQueue(false)
+    setImg(null);
+  }
   const handleKeyDown = (e) => {
-    if(e.key === "Enter"){
+    if(e.key === "Enter"){  
       e.preventDefault()
       handleSend()
     }
@@ -66,23 +73,17 @@ const Input = () => {
       }   
     }
   
-    useLayoutEffect(() => {
-      handleTranslate(text, country, country_re)
-    }, [text])
-
+    // useLayoutEffect(() => {
+    //   handleTranslate(text, country, country_re)
+    // }, [text])
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
-  const reset = () => {
-    var element = document.getElementById("file");
-    element.value = "";
-    setQueue(false)
-    setImg(null);
-  }
+  
   const handleSend = async()=>{
-    var element = document.getElementById("input");
-    element.classList.remove("queue--show");
     setText("")
+    // console.log(text)
+    handleTranslate(text, country, country_re)
     if(img){
       setQueue(false)
       // setLoading(true);
@@ -128,18 +129,6 @@ const Input = () => {
       },
       [data.chatId + ".date"]: serverTimestamp()
     })
-    // await updateDoc(doc(db,"userChats",currentUser.uid),{
-    //   [data.chatId+".lastMessage"]:{
-    //     text
-    //   },
-    //   [data.chatId+".data"]: serverTimestamp()
-    // })
-    // await updateDoc(doc(db,"userChats",data.user.uid),{
-    //   [data.chatId+".lastMessage"]:{
-    //     text
-    //   },
-    //   [data.chatId+".data"]: serverTimestamp()
-    // })
   }
   return (
     <div className='input' id='input'>
