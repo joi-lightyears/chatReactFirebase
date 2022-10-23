@@ -1,9 +1,28 @@
-import React from 'react'
+import {React, useContext} from 'react'
 import Sidebar from "../components/sidebar"
 import Chat from "../components/chat"
 import "../style.scss"
 import {motion} from "framer-motion"
+import { getDatabase, ref, onDisconnect, onValue } from "firebase/database";
+import {AuthContext} from "../context/AuthContext"
 const Home = () => {
+  // presence detection
+  const {currentUser} = useContext(AuthContext)
+  const db = getDatabase();
+  // const presenceRef = ref(db, 'users/' + currentUser.uid);
+  // onDisconnect(presenceRef).set({
+  //   onlineState: false
+  // });
+
+  const connectedRef = ref(db, ".info/connected");
+  onValue(connectedRef, (snap) => {
+    if (snap.val() === true) {
+      console.log("connected");
+    } else {
+      console.log("not connected");
+    }
+  });
+
   return (
     <div className='home'>
         <motion.div
