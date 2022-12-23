@@ -1,4 +1,4 @@
-import {React, useContext, useEffect, useState, useLayoutEffect} from 'react'
+import {React, useContext, useEffect, useState, useRef, useLayoutEffect} from 'react'
 import Img from '../images/img.png'
 import Attach from '../images/attach.png'
 import {AuthContext} from "../context/AuthContext"
@@ -7,7 +7,6 @@ import { arrayUnion, updateDoc, doc, Timestamp, serverTimestamp, getDoc } from '
 import {v4 as uuid} from "uuid"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
-import cyno from "../images/cyno.jpg"
 
 const Input = () => {
   const [text, setText] = useState("")
@@ -38,7 +37,7 @@ const Input = () => {
   const handleKeyDown = (e) => {
     if(e.key === "Enter"){  
       e.preventDefault()
-      handleSend()
+      HandleSend()
     }
   }
 
@@ -54,42 +53,44 @@ const Input = () => {
     const userID = currentUser.uid;
     const chatID = data.chatId;
     let userID_re = chatID.replace(userID, "");
-    const [country_re, setCountry_re] = useState("")
+    const [country_re, setCountry_re] = useState("");
     getData(userID_re, setCountry_re);
-  
-    const handleTranslate = async (text, country, country_re) => {
+    // console.log(country);
+    const HandleTranslate = async (text, country, country_re) => {
       if (text !== ""){
         let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
         await fetch(urlAPI)
             .then((response) => response.json())
-            .then((data) => {
-              setTextTranslated(data.responseData.translatedText)
+            .then((data) => {          
+                setTextTranslated(data.responseData.translatedText);
             })
             .catch((error) => {
               console.log(error);
             });
       } else {
         setTextTranslated("")
-      }   
+      }
+      
     }
   
-    // useLayoutEffect(() => {
-    //   handleTranslate(text, country, country_re)
-    // }, [text])
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
-  
-  const handleSend = async()=>{
+  // useEffect(() => {
+  //   // txtTranslated.current = textTranslated;
+  //   console.log(textTranslated);
+  //  }, [textTranslated])
+  const HandleSend = async()=>{
     setText("")
-    // console.log(text)
-    handleTranslate(text, country, country_re)
-    if(img){
+    HandleTranslate(text, country, country_re)
+     if(img){
       setQueue(false)
       // setLoading(true);
+
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
+          
           await updateDoc(doc(db, "chats", data.chatId), {
             messages: arrayUnion({
               id: uuid(),
@@ -97,7 +98,7 @@ const Input = () => {
               senderId: currentUser.uid,
               date: Timestamp.now(),
               img: downloadURL,
-              textTranslated,
+              textTranslated: textTranslated,
             }),
           });
         });
@@ -105,19 +106,22 @@ const Input = () => {
       })
     } else 
       if(text!==""){
+      // console.log(txtTranslated);
+    // console.log(txtTranslated.current);
+
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
           text,
           senderId: currentUser.uid,
           date: Timestamp.now(),
-          textTranslated,
+          textTranslated: textTranslated,
         }),
       });
     }else{
       return
     }
-    await updateDoc(doc(db,"userChats", currentUser.uid),{
+     await updateDoc(doc(db,"userChats", currentUser.uid),{
       [data.chatId + ".lastMessage"]:{
         text
       },
@@ -129,6 +133,8 @@ const Input = () => {
       },
       [data.chatId + ".date"]: serverTimestamp()
     })
+
+     
   }
   return (
     <div className='input' id='input'>
@@ -147,10 +153,9 @@ const Input = () => {
           <label htmlFor="file">
             <img src={Img} alt="" />
           </label>
-          <button onClick={handleSend}>Send</button>
+          <button onClick={HandleSend}>Send</button>
         </div>
       </div>
-      {/* </div> */}
     </div>
   )
 }
