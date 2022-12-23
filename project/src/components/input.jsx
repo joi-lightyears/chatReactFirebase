@@ -37,7 +37,7 @@ const Input = () => {
   const handleKeyDown = (e) => {
     if(e.key === "Enter"){  
       e.preventDefault()
-      HandleSend()
+      handleSend()
     }
   }
 
@@ -56,7 +56,7 @@ const Input = () => {
     const [country_re, setCountry_re] = useState("");
     getData(userID_re, setCountry_re);
     // console.log(country);
-    const HandleTranslate = async (text, country, country_re) => {
+    const handleTranslate = async (text, country, country_re) => {
       if (text !== ""){
         let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
         await fetch(urlAPI)
@@ -76,17 +76,14 @@ const Input = () => {
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
-  // useEffect(() => {
-  //   // txtTranslated.current = textTranslated;
-  //   console.log(textTranslated);
-  //  }, [textTranslated])
-  const HandleSend = async()=>{
+  useEffect(() => {
+    setTextTranslated(textTranslated);
+   }, [textTranslated])
+  const handleSend = async()=>{
     setText("")
-    HandleTranslate(text, country, country_re)
      if(img){
       setQueue(false)
       // setLoading(true);
-
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
@@ -106,7 +103,7 @@ const Input = () => {
       })
     } else 
       if(text!==""){
-      // console.log(txtTranslated);
+      // console.log(textTranslated);
     // console.log(txtTranslated.current);
 
       await updateDoc(doc(db, "chats", data.chatId), {
@@ -153,7 +150,7 @@ const Input = () => {
           <label htmlFor="file">
             <img src={Img} alt="" />
           </label>
-          <button onClick={HandleSend}>Send</button>
+          <button onClick={handleSend}>Send</button>
         </div>
       </div>
     </div>
