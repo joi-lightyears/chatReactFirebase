@@ -14,19 +14,19 @@ const firebaseConfig = {
 };
 export const app = initializeApp(firebaseConfig);
 
-function requestPermission() {
-  console.log('Requesting permission...');
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
-      const messaging = getMessaging(app)
-      getToken(messaging,{vapidKey: 'BDqjGxkUI5EbrVSllKxDBbXyvZoVqfoN33DhdOBT-vr_4C-urbR9KlyNhEuJFMdrg-DJ4Gz_hbNcwmhGouV8ypY'});
+// function requestPermission() {
+//   console.log('Requesting permission...');
+//   Notification.requestPermission().then((permission) => {
+//     if (permission === 'granted') {
+//       console.log('Notification permission granted.');
+//       const messaging = getMessaging(app)
+//       getToken(messaging,{vapidKey: 'BDqjGxkUI5EbrVSllKxDBbXyvZoVqfoN33DhdOBT-vr_4C-urbR9KlyNhEuJFMdrg-DJ4Gz_hbNcwmhGouV8ypY'});
       
-    }
-    else{
-      console.log('permission not granted');
-    }})}
-requestPermission();
+//     }
+//     else{
+//       console.log('permission not granted');
+//     }})}
+// requestPermission();
 // Initialize Firebase
 export const auth = getAuth();
 export const storage = getStorage();
