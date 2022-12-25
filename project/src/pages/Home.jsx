@@ -14,14 +14,14 @@ const Home = () => {
   //   onlineState: false
   // });
   
-  const connectedRef = ref(db, ".info/connected");
-  onValue(connectedRef, (snap) => {
-    if (snap.val() === true) {
-      console.log("connected");
-    } else {
-      console.log("not connected");
-    }
-  });
+  // const connectedRef = ref(db, ".info/connected");
+  // onValue(connectedRef, (snap) => {
+  //   if (snap.val() === true) {
+  //     console.log("connected");
+  //   } else {
+  //     console.log("not connected");
+  //   }
+  // });
   
   return (
     <div className='home'>
