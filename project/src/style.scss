@@ -37,8 +37,7 @@ textarea {
     }
 }
 body, html{
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    background-color: #23272A;
 }
 .formContainer{
     background-color: #23272A;
@@ -165,6 +164,7 @@ body, html{
 .home{
     background-color: #424549;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     display: flex;
     align-items: center;
     justify-content: center;
