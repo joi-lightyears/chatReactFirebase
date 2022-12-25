@@ -36,7 +36,6 @@ textarea {
         @content
     }
 }
-
 .formContainer{
     background-color: #23272A;
     height: 100vh;
@@ -272,8 +271,8 @@ textarea {
     color: #b9bbbe;
     outline: none;
     padding: 2px 5px;
-    border-radius: 4px;
-    transition: 0.35s ease-in-out;
+    border-radius: 7px;
+    // transition: 0.35s ease-in-out;
     // margin-left: auto;
 }
 // .sidebar .search .searchForm input:focus{
