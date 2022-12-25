@@ -186,6 +186,9 @@ body, html{
 }
 .home .sidebar{
     flex: 1;
+    @include mobile{
+        flex: none;
+    }
     background-color: #2F3136;
     position: relative;
     @include mobile{
@@ -206,9 +209,11 @@ body, html{
     flex: 2;
     background-color: #36393f;
     position: relative;
-    @include mobile{
-        // height: 10%;
-    }
+    // @include mobile{
+        
+    //     // flex: none;
+    //     max-height: max-content;
+    // }
 }
 .sidebar .navbar{
     display: flex;
@@ -381,7 +386,8 @@ body, html{
     // position: relative;
     // overflow: hidden;
     @include mobile{
-        height: 317px;
+        position: absolute;
+        width: calc(100% - 4px);
     }
 }
 // .queue--show{
@@ -560,8 +566,7 @@ body, html{
 .chat{
     .messages{
         margin-right: 5px;
-        overflow: scroll;
-        overflow-x: hidden;
+        overflow-x: auto;
         .message{
             margin-bottom: 20px;
             display: flex;

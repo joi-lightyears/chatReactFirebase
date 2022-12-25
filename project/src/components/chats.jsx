@@ -68,8 +68,8 @@ const Chats = () => {
     }
     else if (text === undefined){
       return ""
-    } else if (text.length > 25){
-      return text.substring(0,25) + "..."
+    } else if (text.length > 20){
+      return text.substring(0,20) + "..."
     } else {
       return text
     }
