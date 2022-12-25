@@ -239,7 +239,7 @@ body, html{
 }
 .sidebar .wrap{
     @include mobile{
-        height: 120px;
+        height: 90px;
         overflow:hidden;
     }
 }
