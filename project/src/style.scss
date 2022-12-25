@@ -223,16 +223,20 @@ body, html{
 
 }
 .sidebar .chats{
-    height: 100%;
-    overflow: scroll;
-    overflow-y: hidden;
-    padding-bottom:20px;
-    display: flex;
-    box-sizing: content-box;
+    @include mobile{
+        height: 100%;
+        overflow: scroll;
+        overflow-y: hidden;
+        padding-bottom:20px;
+        display: flex;
+        box-sizing: content-box;
+    }
 }
 .sidebar .wrap{
-    height: 120px;
-    overflow:hidden;
+    @include mobile{
+        height: 110px;
+        overflow:hidden;
+    }
 }
 .sidebar .navbar .logo{
     font-weight: bold;
@@ -311,7 +315,7 @@ body, html{
     gap: 10px;
     cursor: pointer;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 0px 10px;
 }
 .sidebar .userChat img{
@@ -322,12 +326,14 @@ body, html{
 }
 .sidebar .userChat:hover{
     background-color: rgb(66,70,77, 0.5);
+    transition: 0.5s ease;
     @include tablet{
         background-color: #42464d;
     }
     @include mobile{
         background-color: #42464d;
     }
+    
 }
 .sidebar .userChat .userChatInfo span{
     font-size: 15px;
@@ -578,6 +584,9 @@ body, html{
             }
             .messageContent{
                 max-width: 45%;
+                @include mobile{
+                    max-width: 65%;
+                }
                 display: flex;
                 flex-direction: column;
                 p{
