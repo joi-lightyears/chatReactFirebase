@@ -188,32 +188,15 @@ body, html{
     flex: 1;
     @include mobile{
         flex: none;
+        padding-bottom: 10px;
     }
     background-color: #2F3136;
     position: relative;
-    @include mobile{
-        // height: 10%;
-    }
-    // @include mobile{
-    //     position: absolute;
-    //     // top: 0;
-    //     // left: 0;
-    //     z-index: 1000;
-    //     // display: flex;
-    //     // flex-direction: column;
-    //     height: 100%;
-    //     width: 100%;
-    // }
 }
 .home .chat{
     flex: 2;
     background-color: #36393f;
     position: relative;
-    // @include mobile{
-        
-    //     // flex: none;
-    //     max-height: max-content;
-    // }
 }
 .sidebar .navbar{
     display: flex;
