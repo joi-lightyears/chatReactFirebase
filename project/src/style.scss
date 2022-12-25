@@ -188,6 +188,9 @@ body, html{
     flex: 1;
     background-color: #2F3136;
     position: relative;
+    @include mobile{
+        // height: 10%;
+    }
     // @include mobile{
     //     position: absolute;
     //     // top: 0;
@@ -203,6 +206,9 @@ body, html{
     flex: 2;
     background-color: #36393f;
     position: relative;
+    @include mobile{
+        // height: 10%;
+    }
 }
 .sidebar .navbar{
     display: flex;
@@ -215,6 +221,11 @@ body, html{
     justify-content: space-between;
     color: #f8f2e5;
 
+}
+.sidebar .chats{
+    height: 65%;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 .sidebar .navbar .logo{
     font-weight: bold;
