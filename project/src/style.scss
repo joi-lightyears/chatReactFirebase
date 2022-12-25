@@ -223,9 +223,16 @@ body, html{
 
 }
 .sidebar .chats{
-    height: 39%;
+    height: 100%;
     overflow: scroll;
-    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom:20px;
+    display: flex;
+    box-sizing: content-box;
+}
+.sidebar .wrap{
+    height: 120px;
+    overflow:hidden;
 }
 .sidebar .navbar .logo{
     font-weight: bold;
