@@ -13,7 +13,7 @@ const Home = () => {
   // onDisconnect(presenceRef).set({
   //   onlineState: false
   // });
-
+  
   const connectedRef = ref(db, ".info/connected");
   onValue(connectedRef, (snap) => {
     if (snap.val() === true) {
@@ -22,7 +22,7 @@ const Home = () => {
       console.log("not connected");
     }
   });
-
+  
   return (
     <div className='home'>
         <motion.div
@@ -37,7 +37,7 @@ const Home = () => {
             },
             animateState: {
               opacity: 1,
-              clipPath: "circle(70.7% at 50% 50%)",
+              clipPath: "circle(100% at 50% 50%)",
             },
             exitState: {
               opacity: 0,

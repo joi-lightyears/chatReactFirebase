@@ -35,7 +35,7 @@ const Login = () => {
           },
           animateState: {
             opacity: 1,
-            clipPath: "circle(70.7% at 50% 50%)",
+            clipPath: "circle(100% at 50% 50%)",
           },
           exitState: {
             opacity: 0,

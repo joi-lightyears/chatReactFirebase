@@ -1,6 +1,5 @@
 import {React, useContext, useEffect, useState, useRef, useLayoutEffect} from 'react'
 import Img from '../images/img.png'
-import Attach from '../images/attach.png'
 import {AuthContext} from "../context/AuthContext"
 import { ChatContext } from '../context/ChatContext'
 import { arrayUnion, updateDoc, doc, Timestamp, serverTimestamp, getDoc } from 'firebase/firestore'
@@ -12,11 +11,12 @@ const Input = () => {
   const [text, setText] = useState("")
   const [img, setImg] = useState(null)
   const [queue, setQueue] = useState(false)
-  const [enter, setEnter] = useState(false)
+  // const [enter, setEnter] = useState(false)
   // const [qImg, setQImg] = useState(null)
   const {currentUser} =useContext(AuthContext)
   const {data} = useContext(ChatContext)
   const image = null;
+  const [enter, setEnter] = useState(false)
   // const [loading, setLoading] = useState(false);
   const handleQueue = (imgURL) =>{
     var reader = new FileReader();
@@ -57,7 +57,7 @@ const Input = () => {
     getData(userID_re, setCountry_re);
     // console.log(country);
     const handleTranslate = async (text, country, country_re) => {
-      if (text !== ""){
+      if (text !== "" && country!==country_re){
         let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
         await fetch(urlAPI)
             .then((response) => response.json())
@@ -68,17 +68,17 @@ const Input = () => {
               console.log(error);
             });
       } else {
-        setTextTranslated("")
+        setTextTranslated(text);
       }
       
     }
-  
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
   useEffect(() => {
-    setTextTranslated(textTranslated);
-   }, [textTranslated])
+    handleTranslate(text,country,country_re);
+    // setTextTranslated(textTranslated);
+   }, [text])
   const handleSend = async()=>{
     setText("")
      if(img){
@@ -145,7 +145,7 @@ const Input = () => {
       <div className='inputField'>
         <input id='input' type="text" placeholder='Message' autoComplete="off" onKeyDown={handleKeyDown} onChange={e=>setText(e.target.value)} value={text}/>
         <div className="send">
-          <img src={Attach} alt="" />
+          {/* <img src={Attach} alt="" /> */}
           <input type="file" style={{display:"none"}} id="file" onChange={e=>{setImg(e.target.files[0]); setQueue(true); handleQueue(e.target.files[0])}}/>
           <label htmlFor="file">
             <img src={Img} alt="" />

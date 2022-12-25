@@ -165,6 +165,7 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+    
     // color: #f8f2e5;
 }
 .home .container{
@@ -173,12 +174,25 @@ textarea {
     width: 100%;
     height: 100%;
     display: flex;
-    
+    position: relative;
+    @include mobile{
+        flex-direction: column;
+    }
 }
 .home .sidebar{
     flex: 1;
     background-color: #2F3136;
     position: relative;
+    // @include mobile{
+    //     position: absolute;
+    //     // top: 0;
+    //     // left: 0;
+    //     z-index: 1000;
+    //     // display: flex;
+    //     // flex-direction: column;
+    //     height: 100%;
+    //     width: 100%;
+    // }
 }
 .home .chat{
     flex: 2;
@@ -216,20 +230,27 @@ textarea {
     border-radius: 50%;
     object-fit: cover;
 }
-.sidebar .navbar button{
-    background-color: #36393f;
-    color: #b2b2b4;
-    font-size: 10px;
-    border: none;
-    cursor: pointer;
-    padding: 5px 15px;
-    border-radius: 2px;
-    font-weight: bold;
-    @include tablet{
-        position: absolute;
-        bottom: 10px;
+.sidebar .closed{
+    display: none;
+}
+.sidebar .navbar {
+    .btn{
+        background-color: #36393f;
+        color: #b2b2b4;
+        font-size: 10px;
+        border: none;
+        cursor: pointer;
+        padding: 5px 15px;
+        border-radius: 2px;
+        font-weight: bold;
+        @include mobile{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     }
 }
+
 .sidebar .navbar button:hover{
     background-color: #5764f0;
     color: #f8f2e5;
@@ -244,7 +265,7 @@ textarea {
 .sidebar .search .searchForm input{
     // position: absolute;
     // right: 10px;
-    width: 60%;
+    width: 100%;
     background-color: #202225;
     border: none;
     color: #b9bbbe;
@@ -254,11 +275,11 @@ textarea {
     transition: 0.35s ease-in-out;
     // margin-left: auto;
 }
-.sidebar .search .searchForm input:focus{
-    width: 100%;
-    transition: 0.35s ease-in-out;
+// .sidebar .search .searchForm input:focus{
+//     width: 100%;
+//     transition: 0.35s ease-in-out;
 
-}
+// }
 .sidebar .userChat{
     padding: 10px;
     display: flex;
@@ -306,21 +327,32 @@ textarea {
     color: white;
     font-weight: bold;
 }
-.chat .chatIcons{
-    display: flex;
-    gap: 10px;
-    img{
-        height: 24px;
-        cursor: pointer;
-    }
+// .chat .chatIcons{
+//     display: flex;
+//     gap: 10px;
+//     img{
+//         height: 24px;
+//         cursor: pointer;
+//     }
+// }
+#languages{
+    background: #2f3136;
+    color: #FFF;
+    outline: none;
+    border: none;
+    width: 40%;
+    padding: 6px 20px;
+    border-radius: 10px;
 }
-
 .chat .messages{
     // background-color: white;
     padding: 10px 20px;
     height: calc(100% - 125px);
     // position: relative;
     // overflow: hidden;
+    @include mobile{
+        height: 317px;
+    }
 }
 // .queue--show{
 //     // transform: translateY(-100px);

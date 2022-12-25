@@ -1,5 +1,4 @@
 import {React, useState, useContext} from 'react'
-// import cyno from "../images/cyno.jpg"
 import {db} from "../firebase"
 import { collection, query, where, getDocs, setDoc, doc, updateDoc, serverTimestamp, getDoc } from 'firebase/firestore'
 import {AuthContext} from "../context/AuthContext"
@@ -55,7 +54,7 @@ const Search = () => {
   return (
     <div className='search'>
       <div className="searchForm">
-        <input type="text" placeholder='Search username' onKeyDown={HandleKey} onChange={e=>setUsername(e.target.value)} value={username} />
+        <input type="text" content="initial-scale=1, maximum-scale=1" placeholder='Search username' onKeyDown={HandleKey} onChange={e=>setUsername(e.target.value)} value={username} />
       </div>
       {err && <span>User not found</span>}
       {user && <div className="userChat" onClick={handleSelect}>

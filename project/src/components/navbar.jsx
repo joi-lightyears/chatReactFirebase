@@ -1,5 +1,4 @@
 import {React, useContext} from 'react'
-// import cyno from "../images/cyno.jpg"
 import {signOut} from "firebase/auth"
 import {auth} from "../firebase"
 import {AuthContext} from "../context/AuthContext"
@@ -14,10 +13,12 @@ const Navbar = () => {
       <div className="user">
         <img src={currentUser.photoURL} alt="" />
         <span>{currentUser.displayName}</span>
-        <button onClick={()=>signOut(auth)}>Logout</button>
+        <button className='btn btn-logOut' onClick={()=>signOut(auth)}>Logout</button>
+        {/* <button className='btn btn-burger '>|||</button> */}
+
       </div>
     </div>
   )
 }
 
-export default Navbar
+export default Navbar;
