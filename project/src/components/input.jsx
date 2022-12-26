@@ -8,15 +8,15 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
 
 const Input = () => {
-  const [text, setText] = useState("")
+  const [text, setText] = useState(null)
   const [img, setImg] = useState(null)
   const [queue, setQueue] = useState(false)
-  // const [enter, setEnter] = useState(false)
+  const [enter, setEnter] = useState(false)
   // const [qImg, setQImg] = useState(null)
   const {currentUser} =useContext(AuthContext)
   const {data} = useContext(ChatContext)
   const image = null;
-  const [enter, setEnter] = useState(false)
+  // const [enter, setEnter] = useState(false)
   // const [loading, setLoading] = useState(false);
   const handleQueue = (imgURL) =>{
     var reader = new FileReader();
@@ -42,7 +42,7 @@ const Input = () => {
   }
 
     // Get country from firestore
-    const [textTranslated, setTextTranslated] = useState("")
+    const [textTranslated, setTextTranslated] = useState(null)
     const [country, setCountry] = useState("")
     const getData = async (user, setCountry) => {
       const docRef = doc(db, "users", user);
@@ -56,13 +56,15 @@ const Input = () => {
     const [country_re, setCountry_re] = useState("");
     getData(userID_re, setCountry_re);
     // console.log(country);
+    
     const handleTranslate = async (text, country, country_re) => {
-      if (text !== "" && country!==country_re){
+      if (text !== null && country!==country_re){
         let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
         await fetch(urlAPI)
             .then((response) => response.json())
-            .then((data) => {          
-                setTextTranslated(data.responseData.translatedText);
+            .then((data) => {         
+              setEnter(true);  
+              setTextTranslated(data.responseData.translatedText);
             })
             .catch((error) => {
               console.log(error);
@@ -70,18 +72,34 @@ const Input = () => {
       } else {
         setTextTranslated(text);
       }
+      // useEffect(()=>{
+      //   if (trans!==null){
+      //     setTextTranslated(trans);
+      //   }
+      // },[textTranslated])
       
     }
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
-  useEffect(() => {
-    handleTranslate(text,country,country_re);
-    // setTextTranslated(textTranslated);
-   }, [text])
-  const handleSend = async()=>{
-    setText("")
-     if(img){
+  // useEffect(() => {
+  //   // setTextTranslated(textTranslated);
+  //  }, [text])
+    // useEffect(()=>{
+    //   if(enter=== true){
+    //     const updateData=async()=>{
+    //       console.log(1)
+  
+          
+    //       console.log("rendered");
+    //     }
+    //     updateData()
+    //     .catch(console.error);
+    //   }
+      
+    // },[textTranslated])
+  const updateData =  async(trans)=>{
+    if(img){
       setQueue(false)
       // setLoading(true);
       const storageRef = ref(storage, uuid());
@@ -95,43 +113,61 @@ const Input = () => {
               senderId: currentUser.uid,
               date: Timestamp.now(),
               img: downloadURL,
-              textTranslated: textTranslated,
+              textTranslated: trans,
             }),
           });
         });
         setImg(null)
       })
-    } else 
-      if(text!==""){
-      // console.log(textTranslated);
-    // console.log(txtTranslated.current);
-
+    } else if(text!==null){
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
           text,
           senderId: currentUser.uid,
           date: Timestamp.now(),
-          textTranslated: textTranslated,
+          textTranslated: trans,
         }),
       });
     }else{
       return
     }
-     await updateDoc(doc(db,"userChats", currentUser.uid),{
-      [data.chatId + ".lastMessage"]:{
-        text
-      },
-      [data.chatId + ".date"]: serverTimestamp()
-    })
-    await updateDoc(doc(db,"userChats", data.user.uid),{
-      [data.chatId + ".lastMessage"]:{
-        text
-      },
-      [data.chatId + ".date"]: serverTimestamp()
-    })
+    if(text!==null){
+      await updateDoc(doc(db,"userChats", currentUser.uid),{
+       [data.chatId + ".lastMessage"]:{
+         text
+       },
+       [data.chatId + ".date"]: serverTimestamp()
+     })
+     await updateDoc(doc(db,"userChats", data.user.uid),{
+       [data.chatId + ".lastMessage"]:{
+         text
+       },
+       [data.chatId + ".date"]: serverTimestamp()
+     })
+    }
+  }
+  const handleSend = async()=>{
+    setText("")
+    // handleTranslate(text,country,country_re);
+    if (text !== null && country!==country_re){
+      let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
+        await fetch(urlAPI)
+            .then((response) => response.json())
+            .then((data) => {         
+              // setEnter(true);  
+              // setTextTranslated(data.responseData.translatedText);
+              updateData(data.responseData.translatedText);
 
-     
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      } else {
+        updateData(text)
+        // setTextTranslated(text);
+      }
+    
   }
   return (
     <div className='input' id='input'>
