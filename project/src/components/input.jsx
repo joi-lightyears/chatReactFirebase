@@ -57,28 +57,28 @@ const Input = () => {
     getData(userID_re, setCountry_re);
     // console.log(country);
     
-    const handleTranslate = async (text, country, country_re) => {
-      if (text !== null && country!==country_re){
-        let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
-        await fetch(urlAPI)
-            .then((response) => response.json())
-            .then((data) => {         
-              setEnter(true);  
-              setTextTranslated(data.responseData.translatedText);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-      } else {
-        setTextTranslated(text);
-      }
+    // const handleTranslate = async (text, country, country_re) => {
+    //   if (text !== null && country!==country_re){
+    //     let urlAPI = `https://api.mymemory.translated.net/get?q=${text}!&langpair=${country}|${country_re}`;
+    //     await fetch(urlAPI)
+    //         .then((response) => response.json())
+    //         .then((data) => {         
+    //           setEnter(true);  
+    //           setTextTranslated(data.responseData.translatedText);
+    //         })
+    //         .catch((error) => {
+    //           console.log(error);
+    //         });
+    //   } else {
+    //     setTextTranslated(text);
+    //   }
       // useEffect(()=>{
       //   if (trans!==null){
       //     setTextTranslated(trans);
       //   }
       // },[textTranslated])
       
-    }
+    // }
   const handleZoomImg = (e) => {
     e.target.classList.toggle("imgQueue--zoom")
   }
