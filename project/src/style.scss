@@ -217,9 +217,13 @@ body, html{
 
 }
 .sidebar .chats{
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
     @include mobile{
         height: 100%;
         overflow: scroll;
+        overflow-x: visible;
         overflow-y: hidden;
         padding-bottom:20px;
         display: flex;
@@ -227,6 +231,8 @@ body, html{
     }
 }
 .sidebar .wrap{
+    height: calc(100% - 99px);
+    
     @include mobile{
         height: 90px;
         overflow:hidden;

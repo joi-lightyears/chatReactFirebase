@@ -141,7 +141,7 @@ const Input = () => {
      })
      await updateDoc(doc(db,"userChats", data.user.uid),{
        [data.chatId + ".lastMessage"]:{
-         text
+         trans
        },
        [data.chatId + ".date"]: serverTimestamp()
      })
