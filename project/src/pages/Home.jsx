@@ -1,14 +1,17 @@
-import {React, useContext} from 'react'
+import {React, useContext, useEffect} from 'react'
 import Sidebar from "../components/sidebar"
 import Chat from "../components/chat"
 import "../style.scss"
 import {motion} from "framer-motion"
 import { getDatabase, ref, onDisconnect, onValue } from "firebase/database";
 import {AuthContext} from "../context/AuthContext"
+import { app } from '../firebase'
+
 const Home = () => {
   // presence detection
   const {currentUser} = useContext(AuthContext)
   const db = getDatabase();
+  
   // const presenceRef = ref(db, 'users/' + currentUser.uid);
   // onDisconnect(presenceRef).set({
   //   onlineState: false

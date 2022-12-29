@@ -8,10 +8,12 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import {useNavigate, Link} from "react-router-dom"
 import {motion} from "framer-motion"
+import { token } from '../firebase';
 const Register = () => {
     const [err, setErr] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
+    // console.log(token)
     const handleSubmit = async (e)=>{
         setLoading(true)
         e.preventDefault()
@@ -36,7 +38,8 @@ const Register = () => {
                                 email,
                                 photoURL: url,
                                 country: "vi-VN",
-                                onlineState: true
+                                onlineState: true,
+                                token:token
                         }) 
                         await setDoc(doc(db,"userChats", res.user.uid),{})
                         navigate("/")
