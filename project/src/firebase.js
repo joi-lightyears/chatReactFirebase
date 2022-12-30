@@ -23,12 +23,12 @@ async function requestPermission(){
       console.log('Notification permission granted.');
       const messaging = getMessaging(app)
       const token = await  getToken(messaging,{vapidKey: 'BDqjGxkUI5EbrVSllKxDBbXyvZoVqfoN33DhdOBT-vr_4C-urbR9KlyNhEuJFMdrg-DJ4Gz_hbNcwmhGouV8ypY'});
-      console.log("Token:",token)
-      return await token
+      // console.log("Token:",token)
     }
     else{
       console.log('permission not granted');
     }}
+requestPermission()
 // const tokenTemp=  requestPermission()
 // tokenTemp.then(function(result){
 //    const token=result
@@ -38,8 +38,7 @@ async function requestPermission(){
 // requestPermission().then(function(result){
 //   temp=result
 // })
-export const token=await requestPermission()
-console.log(token)
+
 // messaging.onBackgroundMessage(function(payload) { 
 //   console.log('[firebase-messaging-sw.js] Received background message ', payload);
 //   // Customize notification here

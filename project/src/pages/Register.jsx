@@ -8,7 +8,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import {useNavigate, Link} from "react-router-dom"
 import {motion} from "framer-motion"
-import { token } from '../firebase';
+
+// import { token } from '../firebase';
 const Register = () => {
     const [err, setErr] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -39,7 +40,7 @@ const Register = () => {
                                 photoURL: url,
                                 country: "vi-VN",
                                 onlineState: true,
-                                token:token
+                                token:"null"
                         }) 
                         await setDoc(doc(db,"userChats", res.user.uid),{})
                         navigate("/")

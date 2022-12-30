@@ -7,12 +7,12 @@ import {motion} from "framer-motion"
 import { updateDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from "../firebase";
 import { AuthContext } from '../context/AuthContext'
-import { token } from '../firebase';
+
+// import { token } from '../firebase';
 const Login = () => {
     const [err, setErr] = useState(false);
     const navigate = useNavigate()
     const {currentUser} = useContext(AuthContext)
-
     const handleSubmit = async (e)=>{
         e.preventDefault()
         const email = e.target[0].value;
@@ -20,9 +20,6 @@ const Login = () => {
         try{
           const auth = getAuth()
             await signInWithEmailAndPassword(auth, email, password);
-            await updateDoc(doc(db, "users",currentUser.uid), {
-              "token":token
-          }) 
             navigate("/");
 
         }catch(err){

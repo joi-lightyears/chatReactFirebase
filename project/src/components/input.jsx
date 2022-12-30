@@ -1,3 +1,4 @@
+
 import {React, useContext, useEffect, useState, useRef, useLayoutEffect} from 'react'
 import Img from '../images/img.png'
 import {AuthContext} from "../context/AuthContext"
@@ -6,12 +7,16 @@ import { arrayUnion, updateDoc, doc, Timestamp, serverTimestamp, getDoc } from '
 import {v4 as uuid} from "uuid"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
+import {getMessaging} from "firebase/messaging"
+import { app } from '../firebase'
+import { getDatabase, onDisconnect, onValue } from "firebase/database";
 
 const Input = () => {
   const [text, setText] = useState(null)
   const [img, setImg] = useState(null)
   const [queue, setQueue] = useState(false)
   const [enter, setEnter] = useState(false)
+  // const [token, setToken] = useState(null)
   // const [qImg, setQImg] = useState(null)
   const {currentUser} =useContext(AuthContext)
   const {data} = useContext(ChatContext)
@@ -37,7 +42,7 @@ const Input = () => {
   const handleKeyDown = (e) => {
     if(e.key === "Enter"){  
       e.preventDefault()
-      handleSend()
+      HandleSend()
     }
   }
 
@@ -55,6 +60,13 @@ const Input = () => {
     let userID_re = chatID.replace(userID, "");
     const [country_re, setCountry_re] = useState("");
     getData(userID_re, setCountry_re);
+
+
+
+    
+   
+
+
     // console.log(country);
     
     // const handleTranslate = async (text, country, country_re) => {
@@ -146,8 +158,29 @@ const Input = () => {
        [data.chatId + ".date"]: serverTimestamp()
      })
     }
+    const docRef = doc(db, "users", data.user.uid);
+    const docSnap = await getDoc(docRef);
+    // console.log(docSnap.data().token)
+    const registrationToken = docSnap.data().token;
+    const message = {
+      data: {
+        score: '850',
+        time: '2:45'
+      },
+      token: registrationToken
+    };
+  //   getMessaging().subscribeToTopic(registrationToken, message)
+  // .then((response) => {
+  //   // See the MessagingTopicManagementResponse reference documentation
+  //   // for the contents of response.
+  //   console.log('Successfully subscribed to topic:', response);
+  // })
+  // .catch((error) => {
+  //   console.log('Error subscribing to topic:', error);
+  // });
   }
-  const handleSend = async()=>{
+
+  const HandleSend = async()=>{
     setText("")
     // handleTranslate(text,country,country_re);
     if (text !== null && country!==country_re){
@@ -186,7 +219,7 @@ const Input = () => {
           <label htmlFor="file">
             <img src={Img} alt="" />
           </label>
-          <button onClick={handleSend}>Send</button>
+          <button onClick={HandleSend}>Send</button>
         </div>
       </div>
     </div>
