@@ -21,7 +21,7 @@ const Search = () => {
 
   };
   const HandleKey = (e)=>{
-    e.code === "Enter" && HandleSearch();
+    e.key === "Enter" && HandleSearch();
   };
   const handleSelect = async()=>{
     const combinedID = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
