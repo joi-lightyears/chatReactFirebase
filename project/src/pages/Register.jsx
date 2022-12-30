@@ -7,8 +7,8 @@ import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import {useNavigate, Link} from "react-router-dom"
-import {motion} from "framer-motion"
-
+import {animateVisualElement, motion} from "framer-motion"
+import defaultAvt from "../images/defaultAvt.jpg"
 // import { token } from '../firebase';
 const Register = () => {
     const [err, setErr] = useState(false);
@@ -21,7 +21,11 @@ const Register = () => {
         const displayName = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
+        let bool=true
         const avt = e.target[3].files[0];
+        if(avt===undefined){
+            bool=false
+        }
         try{
             const res = await createUserWithEmailAndPassword(auth, email, password)
             const storageRef = ref(storage, displayName);
@@ -31,13 +35,13 @@ const Register = () => {
                     getDownloadURL(storageRef).then(async(url) => {
                         await updateProfile(res.user, {
                             displayName,
-                            photoURL: url
+                            photoURL: bool?url:defaultAvt
                         })
                         await setDoc(doc(db, "users", res.user.uid), {
                             uid: res.user.uid,
                                 displayName,
                                 email,
-                                photoURL: url,
+                                photoURL: bool?url:defaultAvt,
                                 country: "vi-VN",
                                 onlineState: true,
                                 token:"null"
