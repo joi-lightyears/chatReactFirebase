@@ -21,10 +21,12 @@ const Search = () => {
 
   };
   const HandleKey = (e)=>{
-    if(e.key === "Enter"){  
-      e.preventDefault()
-      HandleSearch()
-  }};
+    HandleSearch()
+  //   if(e.key === "Enter"){  
+  //     e.preventDefault()
+  //     HandleSearch()
+  // }
+};
   const handleSelect = async()=>{
     const combinedID = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
     try{
