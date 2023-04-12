@@ -38,19 +38,27 @@ textarea {
 }
 body, html{
     background-color: #36393f;
+    overflow: hidden;
+
 }
 .formContainer{
-    background-color: #23272A;
+    // background-color: #23272A;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image:url('../src/images/backgroundGif.gif');
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+
     @include mobile{
         height: calc(var(--vh, 1vh) * 100);
     }
     .formWrapper{
-        background-color: hsl(214, 7%, 19%);
-
+        // background-color: hsl(214, 7%, 19%);
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(3px);
         padding: 20px 60px;
         @include mobile{
             padding: 20px 19px;
@@ -67,6 +75,9 @@ body, html{
             display: flex;
             flex-direction: column;
             gap: 25px;
+            &>span{
+                color: #e28875;
+            }
         }
         .inputBox{
             display: flex;
@@ -117,9 +128,12 @@ body, html{
     padding: 10px;
     border-radius: 3px;
     font-size: 0.9rem;
-    transition: all 300ms ease-in-out;
-    &:hover{
-        background-color: #4b5058;
+    // transition: all 300ms ease-in-out;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+    &:active{
+        transform: scale(0.9);
+        opacity: 0.8;
     }
 }
 .formContainer .inputBox input{
@@ -127,7 +141,10 @@ body, html{
     width: 100%;
     height: 100%;
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    // border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1.5px solid #303235;
+    background: rgba(0, 0, 0, 0.3);
+    outline: none;
     border-radius: 3px;
     outline: none;
     font-size: 1rem;
@@ -196,12 +213,12 @@ body, html{
         flex: none;
         padding-bottom: 10px;
     }
-    background-color: #2F3136;
+    background-color: #1e1f22;
     position: relative;
 }
 .home .chat{
     flex: 2;
-    background-color: #36393f;
+    background-color: #111214;
     position: relative;
 }
 .sidebar .navbar{
@@ -351,7 +368,7 @@ body, html{
 }
 .chat .chatInfo{
     height: 50px;
-    background-color: #36393f;
+    background-color: #111214;
     border-bottom: 1.5px solid #202225;
     display: flex;
     align-items: center;
@@ -396,7 +413,7 @@ body, html{
 //     // transform: translateY(-100px);
 // }
 .chat .input{
-    background-color: #40444b ;
+    background-color: #2b2d31 ;
     min-height: 45px;
     padding: 10px 20px;
     border-radius: 8px;
