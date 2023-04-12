@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, getIdToken } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import {getMessaging, getToken} from "firebase/messaging"
+// import {getMessaging} from "firebase/messaging"
 
 const firebaseConfig = {
   apiKey: "AIzaSyD2NKrrgk27bk5aUdhvXJzYcSqx94K4zUU",
@@ -15,14 +15,14 @@ const firebaseConfig = {
 };
 export const app = initializeApp(firebaseConfig);
 // export const token = null
-const messaging = getMessaging(app);
+// const messaging = getMessaging(app);
 async function requestPermission(){
   console.log('Requesting permission...');
   const permission = await Notification.requestPermission()
     if (permission === 'granted') {
       console.log('Notification permission granted.');
-      const messaging = getMessaging(app)
-      const token = await  getToken(messaging,{vapidKey: 'BDqjGxkUI5EbrVSllKxDBbXyvZoVqfoN33DhdOBT-vr_4C-urbR9KlyNhEuJFMdrg-DJ4Gz_hbNcwmhGouV8ypY'});
+      // const messaging = getMessaging(app)
+      // const token = await  getToken(messaging,{vapidKey: 'BDqjGxkUI5EbrVSllKxDBbXyvZoVqfoN33DhdOBT-vr_4C-urbR9KlyNhEuJFMdrg-DJ4Gz_hbNcwmhGouV8ypY'});
       // console.log("Token:",token)
     }
     else{

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import {useNavigate, Link} from "react-router-dom"
-import {animateVisualElement, motion} from "framer-motion"
+import {motion} from "framer-motion"
 import defaultAvt from "../images/defaultAvt.jpg"
 // import { token } from '../firebase';
 const Register = () => {

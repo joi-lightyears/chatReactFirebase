@@ -1,18 +1,16 @@
 // type rafce
-import {React, useContext} from 'react'
+import {React} from 'react'
 import { useState } from "react";
 import {useNavigate, Link} from "react-router-dom"
 import { getAuth,signInWithEmailAndPassword } from "firebase/auth";
 import {motion} from "framer-motion"
-import { updateDoc, doc, getDoc } from 'firebase/firestore';
-import { db } from "../firebase";
-import { AuthContext } from '../context/AuthContext'
+// import { AuthContext } from '../context/AuthContext'
 
 // import { token } from '../firebase';
 const Login = () => {
     const [err, setErr] = useState(false);
     const navigate = useNavigate()
-    const {currentUser} = useContext(AuthContext)
+    // const {currentUser} = useContext(AuthContext)
     const handleSubmit = async (e)=>{
         e.preventDefault()
         const email = e.target[0].value;
