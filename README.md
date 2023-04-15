@@ -24,17 +24,17 @@ But the most interesting part is that you can change language will appear on tha
 
 # Set up
 - Clone
-   ```sh
-   git clone https://github.com/joi-lightyears/chatReactFirebase
-   ```
+    ```sh
+    git clone https://github.com/joi-lightyears/chatReactFirebase
+    ```
 - npm install (note: you have to cd to the **project** folder to run this)
- ```sh
-   npm install
- ```
+    ```sh
+    npm install
+    ```
 - run
-```sh
-   npm start
- ```
+    ```sh
+    npm start
+    ```
 
  # Made by
 [Nguyen Thanh Dat](https://github.com/joi-lightyears)
