@@ -1,4 +1,4 @@
-import {React, useContext, useEffect} from 'react'
+import {React, useContext, useEffect, useState} from 'react'
 import Sidebar from "../components/sidebar"
 import Chat from "../components/chat"
 import "../style.scss"
@@ -21,6 +21,7 @@ const Home = () => {
   //     console.log("not connected");
   //   }
   // });
+  const [activeChat, setActiveChat] = useState(null)
   
   return (
     <div className='home'>
@@ -44,7 +45,7 @@ const Home = () => {
             },
           }}
         className="container">
-            <Sidebar/>
+            <Sidebar setActiveChat={setActiveChat} activeChat={activeChat}/>
             <Chat/>
         </motion.div>
     </div>

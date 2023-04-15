@@ -112,7 +112,10 @@ body, html{
     cursor: pointer;
 }
 .formWrapper .logo{
-    color: #F6F6F6;
+    // color: #F6F6F6;
+    background: linear-gradient(to right, #5CA5F7 21%, #B534EE 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: -20px;
@@ -233,6 +236,20 @@ body, html{
     color: #f8f2e5;
 
 }
+.footer{
+    font-size: 0.9rem;
+    color: #828fa3;
+    text-align: center;
+    opacity: 0.8;
+    a{
+        color:  #935ef1;
+        text-decoration: none;
+        transition: 0.3s ease-out;
+        &:hover{
+            opacity: 0.5;
+        }
+    }
+}
 .sidebar .chats{
     height: 100%;
     overflow: auto;
@@ -248,7 +265,7 @@ body, html{
     }
 }
 .sidebar .wrap{
-    height: calc(100% - 99px);
+    height: calc(100% - 140px);
     
     @include mobile{
         height: 90px;
@@ -258,6 +275,9 @@ body, html{
 .sidebar .navbar .logo{
     font-weight: bold;
     // background-color: #fff;
+    background: linear-gradient(to right, #5CA5F7 21%, #B534EE 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     @include tablet{
         display: none;
     }
@@ -315,7 +335,7 @@ body, html{
     // right: 10px;
     font-size: 16px;
     width: 100%;
-    background-color: #202225;
+    background-color: #2b2d31;
     border: none;
     color: #b9bbbe;
     outline: none;
@@ -338,6 +358,13 @@ body, html{
     color: #ffffff;
     border-radius: 10px;
     margin: 0px 10px;
+    margin-bottom: 10px;
+}
+.active{
+    color: #fff;
+                    background: rgb(92,165,247);
+                    transition: 0.3s ease-out;
+                    background: linear-gradient(90deg, rgba(92,165,247,1) 0%, rgba(181,52,238,1) 68%);
 }
 .sidebar .userChat img{
     width: 50px;
@@ -361,10 +388,10 @@ body, html{
 }
 .sidebar .userChat .userChatInfo span{
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 800;
 }
 .sidebar .userChat .userChatInfo p{
-    color: #96989d;
+    color: #d5dae6;
 }
 .chat .chatInfo{
     height: 50px;
