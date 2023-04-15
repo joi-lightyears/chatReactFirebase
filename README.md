@@ -1,8 +1,8 @@
 # Chat App Translate
-<img align="left" alt="gif" src="https://media.giphy.com/media/4ow1spyyFeiZewFEQ1/giphy.gif">
+<img align="middle" alt="gif" src="https://media.giphy.com/media/4ow1spyyFeiZewFEQ1/giphy.gif"> 
 
-
-### Link [Chat App](https://pdbbchat.vercel.app/)
+---
+### Link  [Chat App](https://pdbbchat.vercel.app/) 
 # Preview
 On Desktop             |  On phone
 :-------------------------:|:-------------------------:
